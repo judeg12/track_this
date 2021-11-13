@@ -10,3 +10,6 @@ The user can:
 ## Tech Stack
 Database will be connected to mongo DB. 
 Frontend is developed using the Flutter SDK version 2. 
+
+## Resources
+UI development tips @ https://www.youtube.com/watch?v=FCyoHclCqc8
