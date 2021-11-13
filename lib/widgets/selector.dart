@@ -8,8 +8,11 @@ class Selector extends StatefulWidget {
 }
 
 class _SelectorState extends State<Selector> {
+  // TODO: move color definitions to app theme
   Color accentColor = Colors.teal;
-  Color? primaryColor = Colors.grey[600];
+  Color selectColor = Colors.orangeAccent;
+  Color? primaryColor = Colors.grey[300];
+  // state variables
   bool play = false;
   bool _selectItemA = true;
   bool _selectItemB = false;
@@ -19,26 +22,20 @@ class _SelectorState extends State<Selector> {
     return Center(
       child: Stack(clipBehavior: Clip.none, alignment: Alignment.center, children: [
         const SizedBox(height: 220, width: 175), // keeps circles within stack
-        IconButton(
-            onPressed: (() {
-              setState(() {
-                play = !play;
-              });
-            }),
-            icon: play
-                ? Icon(Icons.pause, color: accentColor, size: 30.0)
-                : Icon(Icons.play_arrow, color: accentColor, size: 30.0)),
+        (_selectItemA || _selectItemB || _selectItemC)
+            ? Icon(Icons.pause, color: accentColor, size: 30.0)
+            : Icon(Icons.play_arrow, color: accentColor, size: 30.0),
         Positioned(
           top: 5,
           child: IconButton(
               onPressed: (() {
                 setState(() {
-                  _selectItemA = true;
+                  _selectItemA = !_selectItemA;
                   _selectItemB = false;
                   _selectItemC = false;
                 });
               }),
-              icon: Icon(Icons.circle, color: accentColor, size: 30)),
+              icon: Icon(Icons.circle, color: _selectItemA ? selectColor : accentColor, size: 30)),
         ),
         Positioned(
           left: 5,
@@ -47,11 +44,11 @@ class _SelectorState extends State<Selector> {
               onPressed: (() {
                 setState(() {
                   _selectItemA = false;
-                  _selectItemB = true;
+                  _selectItemB = !_selectItemB;
                   _selectItemC = false;
                 });
               }),
-              icon: Icon(Icons.circle, color: accentColor, size: 30)),
+              icon: Icon(Icons.circle, color: _selectItemB ? selectColor : accentColor, size: 30)),
         ),
         Positioned(
           right: 5,
@@ -61,10 +58,10 @@ class _SelectorState extends State<Selector> {
                 setState(() {
                   _selectItemA = false;
                   _selectItemB = false;
-                  _selectItemC = true;
+                  _selectItemC = !_selectItemC;
                 });
               }),
-              icon: Icon(Icons.circle, color: accentColor, size: 30)),
+              icon: Icon(Icons.circle, color: _selectItemC ? selectColor : accentColor, size: 30)),
         ),
       ]),
     );
